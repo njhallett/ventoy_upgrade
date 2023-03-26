@@ -22,9 +22,19 @@ echo "Ventoy device found: $dev"
 
 cur_ver=$(sudo vtoycli fat "$dev""2")
 
+if [ -z "$cur_ver" ]; then
+    echo "Current version not found"
+    exit 1
+fi
+
 echo "Current version: $cur_ver"
 
 lat_ver=$(gh release list --repo ventoy/Ventoy | grep Latest | grep -o '\ [0-9]\+\.[0-9]\+\.[0-9]\+\ ' | awk '{$1=$1;print}')
+
+if [ -z "$lat_ver" ]; then
+    echo "Latest version not found"
+    exit 1
+fi
 
 echo "Latest version: $lat_ver"
 
