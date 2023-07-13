@@ -2,6 +2,8 @@
 
 # shellcheck disable=SC3037
 
+set -e
+
 command -v gh >/dev/null 2>&1 || {
     echo >&2 "I require gh but it's not installed.  Aborting."
     exit 1
@@ -29,7 +31,7 @@ fi
 
 echo "Current version: $cur_ver"
 
-lat_ver=$(gh release list --repo ventoy/Ventoy | grep Latest | grep -o '\ [0-9]\+\.[0-9]\+\.[0-9]\+\ ' | awk '{$1=$1;print}')
+lat_ver=$(gh release list --repo ventoy/Ventoy | grep Latest | grep -o ' [0-9]\+\.[0-9]\+\.[0-9]\+ ' | awk '{$1=$1;print}')
 
 if [ -z "$lat_ver" ]; then
     echo "Latest version not found"
